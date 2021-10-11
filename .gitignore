@@ -15,6 +15,9 @@
 # Maven
 target/
 
+# Logs
+*.log
+
 # IntelliJ project files
 *.iml
 *.iws
