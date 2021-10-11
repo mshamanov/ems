@@ -1,0 +1,28 @@
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    background-color: #efefef;
+    background-image: linear-gradient(315deg, #d7e1ec 0%, #efefef 75%);
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    margin-bottom: 5px;
+}
+
+.page-link {
+    color: #343a40;
+}
+
+.page-link:hover {
+    color: #6c757d;
+}
+
+.gap {
+    width: 5px;
+    height: 5px;
+}
