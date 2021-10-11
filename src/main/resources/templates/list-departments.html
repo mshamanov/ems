@@ -37,7 +37,7 @@
                                 style="cursor: pointer;"
                                 th:onclick="sortBy('name', [[${currentSortBy}]], [[${currentSortDir}]])"></i></th>
                         <th scope="col" class="w-25">Total <i
-                                th:class="${#strings.equals(sortBy, 'total') ? (#strings.equals(dir, 'asc') ? 'fa fa-sort-asc' : 'fa fa-sort-desc') : 'fa fa-unsorted'}"
+                                th:class="${#strings.equals(currentSortBy, 'total') ? (#strings.equals(currentSortDir, 'asc') ? 'fa fa-sort-asc' : 'fa fa-sort-desc') : 'fa fa-unsorted'}"
                                 style="cursor: pointer;"
                                 th:onclick="sortBy('total', [[${currentSortBy}]], [[${currentSortDir}]])"></i></th>
                         <th scope="col" class="w-auto">Actions</th>
