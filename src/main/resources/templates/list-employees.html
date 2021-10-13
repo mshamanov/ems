@@ -2,10 +2,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<th:block th:insert="~{/components/header :: head-block}"></th:block>
+<th:block th:insert="~{components/header :: head-block}"></th:block>
 <body>
 <div class="container">
-    <th:block th:insert="~{/components/header :: header}"></th:block>
+    <th:block th:insert="~{components/header :: header}"></th:block>
     <div class="col-sm-12">
         <div class="row mb-3">
             <a th:href="@{/addEmployee}" class="btn btn btn-secondary mr-2"><i class="fa fa-plus"></i>&nbsp;Add Employee</a>
@@ -69,7 +69,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer w-100 py-2 text-right" th:insert="~{/components/pagination :: pagination}"></div>
+            <div class="card-footer w-100 py-2 text-right" th:insert="~{components/pagination :: pagination}"></div>
         </div>
     </div>
 </div>
