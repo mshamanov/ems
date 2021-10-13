@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:insert="~{header :: head-block}"></th:block>
+<body>
+<div class="d-flex justify-content-center">
+    <nav th:if="${currentPage >= 1 && currentPage <= totalPages}" class="d-inline-block" th:fragment="pagination">
+        <ul class="pagination pagination-sm m-0">
+            <li class="page-item" th:classappend="${currentPage <= 1 ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:onclick="goToPage([[${currentPage - 1}]], [[${pageSize}]])">Previous</a>
+            </li>
+            <li th:if="${currentPage - 3 >= 1}" class="page-item">
+                <a class="page-link" th:onclick="goToPage(1, [[${pageSize}]])">1</a>
+            </li>
+            <li th:if="${currentPage - 3 > 1}" class="page-item">
+                <a class="page-link" th:onclick="goToPage([[${currentPage - 3}]], [[${pageSize}]])">...</a>
+            </li>
+            <li th:each="i: ${#numbers.sequence((currentPage - 2 > 1 ? currentPage - 2 : 1), (currentPage + 2 < totalPages ? currentPage + 2 : totalPages))}"
+                class="page-item" th:classappend="${currentPage == i} ? 'disabled'">
+                <a class="page-link" th:classappend="${currentPage == i} ? 'text-white bg-info'"
+                   th:onclick="goToPage([[${i}]], [[${pageSize}]])" th:text="${i}">2</a>
+            </li>
+            <li th:if="${currentPage + 3 < totalPages}" class="page-item">
+                <a class="page-link" th:onclick="goToPage([[${currentPage + 3}]], [[${pageSize}]])">...</a>
+            </li>
+            <li th:if="${currentPage + 3 <= totalPages}" class="page-item">
+                <a class="page-link" th:onclick="goToPage([[${totalPages}]], [[${pageSize}]])"
+                   th:text="${totalPages}">4</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:onclick="goToPage([[${currentPage + 1}]], [[${pageSize}]])">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

@@ -49,19 +49,17 @@ public class DepartmentController {
         List<Department> departmentList = departmentPage.get().collect(Collectors.toList());
 
         ModelAndView mav = new ModelAndView("list-departments");
-        mav.addObject("departments", departmentList);
-        mav.addObject("currentPage", pageNumber);
-        mav.addObject("pageSize", pageSize);
-        mav.addObject("totalPages", departmentPage.getTotalPages());
-
+        mav.addObject("departments", departmentList)
+           .addObject("currentPage", pageNumber)
+           .addObject("pageSize", pageSize)
+           .addObject("totalPages", departmentPage.getTotalPages());
         return mav;
     }
 
     @GetMapping("/addDepartment")
     public ModelAndView addDepartment() {
         ModelAndView mav = new ModelAndView("add-department");
-        Department newDepartment = new Department();
-        mav.addObject("department", newDepartment);
+        mav.addObject("department", new Department());
         return mav;
     }
 
@@ -73,10 +71,13 @@ public class DepartmentController {
 
     @GetMapping("/updateDepartment")
     public ModelAndView updateDepartment(@RequestParam Long id) {
+        Department existingDepartment =
+                this.departmentRepository.findById(id)
+                                         .orElseThrow(() -> new ResponseStatusException(
+                                                 HttpStatus.NOT_FOUND, "Unable to find department"));
+
         ModelAndView mav = new ModelAndView("update-department");
-        Department department = this.departmentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Unable to find department"));
-        mav.addObject("department", department);
+        mav.addObject("department", existingDepartment);
         return mav;
     }
 
@@ -85,5 +86,4 @@ public class DepartmentController {
         this.departmentRepository.deleteById(id);
         return "redirect:/departments";
     }
-
 }

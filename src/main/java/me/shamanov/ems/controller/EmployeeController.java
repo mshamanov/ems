@@ -44,22 +44,18 @@ public class EmployeeController {
         List<Employee> employeeList = employeePage.get().collect(Collectors.toList());
 
         ModelAndView mav = new ModelAndView("list-employees");
-        mav.addObject("employees", employeeList);
-        mav.addObject("currentPage", pageNumber);
-        mav.addObject("pageSize", pageSize);
-        mav.addObject("totalPages", employeePage.getTotalPages());
-
+        mav.addObject("employees", employeeList)
+           .addObject("currentPage", pageNumber)
+           .addObject("pageSize", pageSize)
+           .addObject("totalPages", employeePage.getTotalPages());
         return mav;
     }
 
     @GetMapping("/addEmployee")
     public ModelAndView addEmployee() {
         ModelAndView mav = new ModelAndView("add-employee");
-        Employee newEmployee = new Employee();
-        newEmployee.setDepartment(new Department());
-        List<Department> departments = this.departmentRepository.findAll();
-        mav.addObject("employee", newEmployee);
-        mav.addObject("departments", departments);
+        mav.addObject("employee", Employee.builder().department(new Department()).build())
+           .addObject("departments", this.departmentRepository.findAll());
         return mav;
     }
 
@@ -71,12 +67,12 @@ public class EmployeeController {
 
     @GetMapping("/updateEmployee")
     public ModelAndView updateEmployee(@RequestParam Long id) {
-        ModelAndView mav = new ModelAndView("update-employee");
-        Employee employee = this.employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(
+        Employee existingEmployee = this.employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Unable to find employee"));
-        List<Department> departments = this.departmentRepository.findAll();
-        mav.addObject("employee", employee);
-        mav.addObject("departments", departments);
+
+        ModelAndView mav = new ModelAndView("update-employee");
+        mav.addObject("employee", existingEmployee)
+           .addObject("departments", this.departmentRepository.findAll());
         return mav;
     }
 
@@ -85,5 +81,4 @@ public class EmployeeController {
         this.employeeRepository.deleteById(id);
         return "redirect:/";
     }
-
 }
